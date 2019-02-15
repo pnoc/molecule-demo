@@ -1,2 +1,4 @@
 ---
 # defaults file for realworld
+
+realworld_server_port: 3000

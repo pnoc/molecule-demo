@@ -1,2 +1,35 @@
 ---
 # tasks file for realworld
+- name: ensures a "realworld" user group exists
+  group:
+    name: realworld
+    state: present
+
+- name: ensures a "realworld" user exists
+  user:
+    name: realworld
+    group: realworld
+    home: /home/realworld
+    state: present
+
+- name: Checkout git project for the server
+  git:
+    repo: https://github.com/gothinkster/node-express-realworld-example-app.git
+    version: master
+    dest: /home/realworld/server
+
+- name: install server dependencies
+  npm:
+    path: /home/realworld/server
+
+- name: install realworld server as a service
+  template:
+    src: realworld-server.service.j2
+    dest: /etc/systemd/system/realworld-server.service
+    owner: root
+    group: root
+
+- name: ensure realworld service is started
+  service:
+    name: realworld-server
+    state: started
