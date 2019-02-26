@@ -36,3 +36,4 @@
   service:
     name: realworld-server
     state: started
+    enabled: yes
