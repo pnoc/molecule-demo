@@ -12,9 +12,9 @@ platforms:
     image: centos/systemd
     # solves proxy issues with docker image pull
     env:
-      http_proxy: ${http_proxy}
-      https_proxy: ${https_proxy}
-      no_proxy: ${no_proxy}
+      http_proxy: "{{http_proxy}}"
+      https_proxy: "{{https_proxy}}"
+      no_proxy: "{{no_proxy}}"
     command: /sbin/init
     capabilities:
       - SYS_ADMIN
@@ -28,9 +28,9 @@ provisioner:
   inventory:
     host_vars:
       server:
+        install_local_mongodb: "true"
         mongodb_uri: "mongodb://localhost/conduit"
         realworld_server_secret: "somethingsecret"
-        # ansible_python_interpreter: /usr/bin/python3
   lint:
     name: ansible-lint
 scenario:

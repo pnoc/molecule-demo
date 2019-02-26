@@ -12,15 +12,17 @@
     home: /home/realworld
     state: present
 
-- name: Checkout git project for the server
+- name: Checkout git project for the realworld server
   git:
     repo: https://github.com/gothinkster/node-express-realworld-example-app.git
     version: master
     dest: /home/realworld/server
+  notify: ensure realworld service is restarted
 
 - name: install server dependencies
   npm:
     path: /home/realworld/server
+  notify: ensure realworld service is restarted
 
 - name: install realworld server as a service
   template:
@@ -28,6 +30,7 @@
     dest: /etc/systemd/system/realworld-server.service
     owner: root
     group: root
+  notify: ensure realworld service is restarted
 
 - name: ensure realworld service is started
   service:

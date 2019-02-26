@@ -2,3 +2,5 @@
 # defaults file for realworld
 
 realworld_server_port: 3000
+
+install_local_mongodb: false

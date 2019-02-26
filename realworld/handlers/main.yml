@@ -1,2 +1,7 @@
 ---
 # handlers file for realworld
+
+- name: ensure realworld service is restarted
+  service:
+    name: realworld-server
+    state: restarted
