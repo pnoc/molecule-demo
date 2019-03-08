@@ -1,0 +1,5 @@
+---
+- name: mongodb must be installed on the DB server
+  hosts: database
+  roles:
+    - role: undergreen.mongodb

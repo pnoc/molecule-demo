@@ -8,6 +8,7 @@ driver:
 lint:
   name: yamllint
 platforms:
+  # target host for the realworld server
   - name: server
     image: centos/systemd
     # solves proxy issues with docker image pull
@@ -22,19 +23,40 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
+    networks:
+      - name: foo_network
+
+  # host running mongodb
+  - name: database
+    image: centos/systemd
+    # solves proxy issues with docker image pull
+    env:
+      http_proxy: "${http_proxy}"
+      https_proxy: "${https_proxy}"
+      no_proxy: "${no_proxy}"
+    command: /sbin/init
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    networks:
+      - name: foo_network
+    exposed_ports:
+      - "27017:27017/tcp"
 
 provisioner:
   name: ansible
   inventory:
     host_vars:
       server:
-        install_local_mongodb: true
-        mongodb_uri: "mongodb://localhost/conduit"
+        mongodb_uri: "mongodb://database/conduit"
         realworld_server_secret: "somethingsecret"
   lint:
     name: ansible-lint
 scenario:
-  name: default
+  name: remote_db
 verifier:
   name: testinfra
   lint:

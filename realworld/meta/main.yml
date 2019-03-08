@@ -61,5 +61,4 @@ dependencies:
     npm_config_prefix: "/usr/local/lib/npm"
   - role: geerlingguy.git
   - role: undergreen.mongodb
-    when: "install_local_mongodb == true"
-
+    when: install_local_mongodb

@@ -5,14 +5,14 @@ After=network.target
 
 [Service]
 Environment=PORT={{ realworld_server_port }}
-Environment=NODE_ENV=dev
+Environment=NODE_ENV=production
 Environment=MONGODB_URI={{ mongodb_uri }}
 Environment=SECRET={{ realworld_server_secret }}
 Type=simple
 User=realworld
 ExecStart=/usr/bin/npm start --prefix /home/realworld/server
 WorkingDirectory=/home/realworld/server
-Restart=on-failure
+# Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

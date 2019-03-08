@@ -13,13 +13,15 @@ def test_hosts_file(host):
     assert f.user == 'root'
     assert f.group == 'root'
 
+
 def test_user_and_group_exists(host):
     grp = host.group('realworld')
-    assert grp != None
+    assert grp is not None
     usr = host.user('realworld')
-    assert usr != None
+    assert usr is not None
     assert 'realworld' in usr.groups
     assert usr.home == '/home/realworld'
+
 
 def test_service(host):
     srv = host.service("realworld-server")
