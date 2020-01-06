@@ -27,3 +27,9 @@ def test_service(host):
     srv = host.service("realworld-server")
     assert srv.is_running
     assert srv.is_enabled
+
+
+def test_api(host):
+    cmd = host.run('curl -so /dev/null -w "%{http_code}" http://localhost:3000/api/articles')
+    assert cmd.rc == 0
+    assert cmd.stdout == '200'
