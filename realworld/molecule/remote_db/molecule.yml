@@ -44,7 +44,9 @@ platforms:
     networks:
       - name: foo_network
     exposed_ports:
-      - "27017:27017/tcp"
+      - "27017"
+    published_ports:
+      - "27017:27017"
 
 provisioner:
   name: ansible

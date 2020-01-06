@@ -3,3 +3,4 @@
   hosts: database
   roles:
     - role: undergreen.mongodb
+      mongodb_net_bindip: "0.0.0.0"
